@@ -96,9 +96,9 @@ class BST:
 						delnode.right=delnode.right
 				else:
 					if delnode.data<delparent.data:
-						delparent.left=delnode.right
+						delparent.left=None
 					else:
-						delparent.right=delnode.right		
+						delparent.right=None		
 
 
 		parent=None
