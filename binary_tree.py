@@ -72,6 +72,79 @@ class BST:
 			print("maximium element is ",cur.data)
 		else:
 			self._find_max(cur.right)	
+	def delete(self,data):
+		if self.root is None:
+			return None
+		if self.root.data==data:
+			if self.root.left is None and self.root.right is None:
+				self.root=None
+			elif self.root.left and self.root.right is None:
+				self.root=self.root.left
+			elif self.root.right and self.root.left is None:
+				self.root=self.root.right
+			elif self.root.left and self.root.right:
+				delparent=self.root
+				delnode=self.root.right
+				while delnode.left:
+					delparent=delnode
+					delnode=delnode.left
+				self.root.data=delnode.data
+				if delnode.right:
+					if delnode.data<delparent.data:
+						delparent.left=delnode.right
+					else:
+						delnode.right=delnode.right
+				else:
+					if delnode.data<delparent.data:
+						delparent.left=delnode.right
+					else:
+						delparent.right=delnode.right		
+
+
+		parent=None
+		cur_node=self.root
+		while cur_node and cur_node.data!=data:
+			parent=cur_node
+			if data<cur_node.data:
+				cur_node=cur_node.left
+			elif data>cur_node.data:
+				cur_node=cur_node.right
+		if cur_node is None or cur_node.data!=data:
+			return None
+		elif cur_node.right is None and cur_node.left is None:
+			if data<parent.data:
+				parent.left =None
+			else:
+				parent.right=None
+		elif cur_node.left is None and cur_node.right:
+			if data<parent.data: 
+				parent.left=cur_node.right
+			else:
+				parent.right=cur_node.right
+			return True	
+		elif cur_node.left and cur_node.right is None:
+			if data<parent.data:
+				parent.left=cur_node.left
+			else:
+				parent.right=cur_node.left
+			return True
+		else:
+			delparent=cur_node
+			delnode=cur_node.right
+			while delnode.left:
+				delparent=delnode
+				delnode=delnode.left
+			cur_node.data=delnode.data
+			if delnode.right:
+				if delparent.data>delnode.data:
+					delparent.left=delnode.right
+				else:
+					delparent.right=delnode.right
+			else:
+				if delnode.data<delparent.data:
+					delparent.left=None
+				else:
+					delparent.right=None		
 			
 
 
